@@ -14,7 +14,10 @@
 */
 
 // Code here
-
+function CarFactory(make, model){
+  this.make = make
+  this.model = model
+}
 
 
 ////////// PROBLEM 2 //////////
@@ -33,7 +36,7 @@ function Employee(name, email, hireDate, salary) {
 */
 
 // Code here
-
+var bob = new Employee('Bob', 'bob@gmail.com', '01-02-98')
 
 
 ////////// PROBLEM 3 //////////
@@ -54,7 +57,16 @@ mustang.moveCar(); // Increments mustang' move property by 10. Returns the new m
 */
 
 // Code here
-
+function Car(make, model, year) {
+  this.make = make
+  this.model = model
+  this.year = year
+  this.move = 0
+  this.moveCar = function(){
+    this.move += 10
+    return this.move
+  }
+}
 
 ////////// PROBLEM 4 ////////// 	
 
@@ -62,14 +74,18 @@ mustang.moveCar(); // Increments mustang' move property by 10. Returns the new m
  // Here we have a constructor function named Movie that takes in 3 parameters: name (a string), genre (a string), and rating (a number withing 1-100 that has been averaged out from previous given ratings). Write a prototype method for the Movie constructor function called changeRating. This method should take in a number as a parameter that will be a new rating. Find the average between the old rating and the new rating. Change the rating property to become this new number and return the updated rating. 	
 
 
- function Movie(name, genre, rating) {	
+function Movie(name, genre, rating) {	
   this.name = name;	
   this.genre = genre;	
   this.rating = rating;	
 }	
 
+Movie.prototype.changeRating = function(num){
+   let rate = (this.rating + num) / 2;
+   this.rating = rate
+   return this.rating
+}
 
- // Code here	
 
 
 
@@ -83,8 +99,15 @@ mustang.moveCar(); // Increments mustang' move property by 10. Returns the new m
 
 
  // Code here	
-
-
+function User(name, age, email, savedPosts) {
+  this.name = name
+  this.age = age
+  this.email = email
+  this.savedPosts = savedPosts
+}
+User.prototype.addSavedPost = function(id, title, rating){
+  this.savedPosts.push({id, title, rating})
+}
 
 
 
@@ -96,7 +119,10 @@ mustang.moveCar(); // Increments mustang' move property by 10. Returns the new m
 
 
  // Code here	
+User.prototype.removeSavedPost = function(id){
+  this.savedPosts = this.savedPosts.filter(e => e.id !== id)
 
+}
 
 
 
@@ -110,4 +136,9 @@ mustang.moveCar(); // Increments mustang' move property by 10. Returns the new m
 
  // Code here
 
+User.prototype.changePostRating = function(id, rating){
+  const index = this.savedPosts.findIndex(e => +e.id === +id)
+  this.savedPosts[index].rating = rating 
+  return this.savedPosts    
+}  
 
